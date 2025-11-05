@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface BannerProps {
   title: string;
   description?: string;
@@ -8,7 +6,7 @@ interface BannerProps {
   model?: string;
 }
 
-const Banner: React.FC<BannerProps> = ({ title, description, image, video, model }) => {
+const Banner = ({ title, description, image, video, model }: BannerProps) => {
   return (
     <div className="banner">
       <h2>{title}</h2>
@@ -16,7 +14,13 @@ const Banner: React.FC<BannerProps> = ({ title, description, image, video, model
 
       {image && <img src={image} alt={title} />}
       {video && <video src={video} autoPlay muted loop />}
-      {model && <model-viewer src={model} alt={title} camera-controls auto-rotate></model-viewer>}
+      {model && (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `<model-viewer src="${model}" alt="${title}" camera-controls auto-rotate></model-viewer>`
+          }}
+        />
+      )}
     </div>
   );
 };
